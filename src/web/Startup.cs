@@ -15,9 +15,15 @@ namespace Notifier.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
         {
+            app.UseDeveloperExceptionPage();
             app.UseIISPlatformHandler();
             
-            app.UseMvc();
+            app.UseStaticFiles();
+            
+            app.UseMvc(routes =>{
+                routes.MapRoute(name:"default", template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute("spa-fallback","{*anything}",new{controller ="Home", action="Index"} );                
+            });
         }
 
         // Entry point for the application.

@@ -1,0 +1,25 @@
+<notifier>
+    Loading...
+</notifier>
+@section scripts {
+
+    <!-- 1. Load libraries -->
+    <!-- IE required polyfills, in this exact order -->
+    <script src="lib/es6-shim/es6-shim.min.js"></script>
+    <script src="lib/systemjs/dist/system-polyfills.js"></script>
+    <script src="lib/angular2/es6/dev/src/testing/shims_for_IE.js"></script>   
+    <script src="lib/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="lib/systemjs/dist/system.src.js"></script>
+    <script src="lib/rxjs/bundles/Rx.js"></script>
+    <script src="lib/angular2/bundles/angular2.dev.js"></script>
+    <script src="lib/angular2/bundles/router.dev.js"></script>
+    <script src="lib/angular2/bundles/http.dev.js"></script>
+    <script>
+        System.config({
+            packages: {
+                'app': {defaultExtension: 'js'}
+            }
+        });
+        System.import('./app/main').catch(console.log.bind(console));
+    </script>
+}

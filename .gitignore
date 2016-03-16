@@ -256,3 +256,7 @@ _Pvt_Extensions
 .idea/
 *.sln.iml
 
+src/web/typings
+src/web/wwwroot/app/**/*.js
+src/web/wwwroot/app/**/*.map
+src/web/wwwroot/lib/
