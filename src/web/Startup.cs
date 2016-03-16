@@ -1,7 +1,7 @@
 using Microsoft.AspNet.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace notifier
+namespace Notifier.Web
 {
     public class Startup
     {
