@@ -19,20 +19,22 @@ var config = {
         require.resolve('rxjs/bundles/Rx.js'),
         require.resolve('angular2/bundles/angular2.dev.js'),
         require.resolve('angular2/bundles/router.dev.js'),
-        require.resolve('angular2/bundles/http.dev.js')
+        require.resolve('angular2/bundles/http.dev.js'),
+        require.resolve('material-design-lite/dist/material.blue-teal.min.css'),
+        require.resolve('material-design-lite/material.min.js')
     ]
 };
 
-gulp.task('build.lib', ['clean'], function() {
-    return gulp.src(config.lib, { base: config.libBase })
+gulp.task('build.lib', ['clean'], function () {
+    return gulp.src(config.lib, {base: config.libBase})
         .pipe(gulp.dest(webroot + 'lib'));
 });
 
-gulp.task('build-dev', ['build.lib'], function() {
+gulp.task('build-dev', ['build.lib'], function () {
 
 });
 
-gulp.task('clean', function() {
+gulp.task('clean', function () {
     return del([webroot + 'lib']);
 });
 
