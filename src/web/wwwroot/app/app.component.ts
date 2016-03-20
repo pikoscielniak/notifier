@@ -1,10 +1,31 @@
-import {Component} from 'angular2/core';
+import {Component, OnInit} from 'angular2/core';
+
+import {ConfirmService} from "./shared/confirm/confirm.service";
+import {ConfirmComponent} from "./shared/confirm/confirm.component";
+
+declare var componentHandler:any;
+
 @Component({
     selector: 'notifier',
-    template: `<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header"> 
-        <header class="mdl-layout__header"><h1>{{title}}</h1></header>
-    </div>`
+    templateUrl: 'app/app.component.html',
+    directives: [ConfirmComponent],
+    providers: [
+        ConfirmService
+    ]
 })
-export class AppComponent { 
+export class AppComponent implements OnInit {
+
     title = "Notifier!!!";
+
+    constructor(private _confirmService:ConfirmService) {
+    }
+
+    showConfirmDialog() {
+        this._confirmService.activate("Are you sure?")
+            .then(res => console.log(`Confirmed: ${res}`));
+    }
+
+    ngOnInit():any {
+        componentHandler.upgradeDom();
+    }
 }
