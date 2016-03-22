@@ -49,7 +49,6 @@ export class ConfirmComponent implements OnInit {
     private _show(resolve:(boolean) => any) {
         document.onkeyup = null;
 
-        debugger;
         let negativeOnClick = (e:any) => resolve(false);
         let positiveOnClick = (e:any) => resolve(true);
 
