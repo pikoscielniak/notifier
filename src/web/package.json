@@ -4,8 +4,9 @@
   "scripts": {
     "tsc": "tsc -w",
     "typings": "typings",
-    "buildDev":"gulp build-dev",
-    "postinstall": "concurrently \"typings install\" \"npm run buildDev\""
+    "build-dev":"gulp build-dev",
+    "build-prod":"gulp build-prod",
+    "postinstall": "concurrently \"typings install\" \"npm run build-dev\""
   },
   "license": "ISC",
   "dependencies": {

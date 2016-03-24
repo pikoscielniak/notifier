@@ -23,11 +23,17 @@
     },
     "exclude": [
         "wwwroot",
-        "node_modules"
+        "node_modules"  
     ],
     "publishExclude": [
         "node_modules",
+        "typings",
+        ".idea",
         "**.user",
         "**.vspscc"
-    ]
+    ],
+    "scripts": { 
+        "postrestore": [ "npm install" ],
+        "prepare": ["npm run build-prod"]
+  }
 }
