@@ -3,6 +3,10 @@
 var path = require('path');
 var gulp = require('gulp');
 var del = require('del');
+var eventStream = require('event-stream');
+var typescript = require('gulp-typescript');
+var inlineNg2Template = require('gulp-inline-ng2-template');
+var sourcemaps = require('gulp-sourcemaps');
 
 var webroot = "./wwwroot/";
 
@@ -28,6 +32,22 @@ var config = {
 gulp.task('build.lib', ['clean'], function () {
     return gulp.src(config.lib, {base: config.libBase})
         .pipe(gulp.dest(webroot + 'lib'));
+});
+
+gulp.task('build.lib', function () {
+    return gulp.src(config.lib, { base: config.libBase })
+        .pipe(gulp.dest(webroot + 'lib'));
+});
+
+gulp.task('build-prod', ['build.lib'], function () {
+    var tsProject = typescript.createProject('./tsconfig.json', { typescript: require('typescript') });
+    var tsSrcInlined = gulp.src([webroot + '**/*.ts'], { base: webroot })
+        .pipe(inlineNg2Template({ base: webroot }));
+    return eventStream.merge(tsSrcInlined, gulp.src(['typings/browser/**/*.ts','typings/browser.d.ts']))
+        .pipe(sourcemaps.init())
+        .pipe(typescript(tsProject))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(webroot))
 });
 
 gulp.task('build-dev', ['build.lib'], function () {

@@ -1,25 +1,61 @@
 <notifier>
     Loading...
 </notifier>
+
 @section scripts {
 
-    <!-- 1. Load libraries -->
-    <!-- IE required polyfills, in this exact order -->
-    <script src="lib/es6-shim/es6-shim.min.js"></script>
-    <script src="lib/systemjs/dist/system-polyfills.js"></script>
-    <script src="lib/angular2/es6/dev/src/testing/shims_for_IE.js"></script>   
-    <script src="lib/angular2/bundles/angular2-polyfills.js"></script>
-    <script src="lib/systemjs/dist/system.src.js"></script>
-    <script src="lib/rxjs/bundles/Rx.js"></script>
-    <script src="lib/angular2/bundles/angular2.dev.js"></script>
-    <script src="lib/angular2/bundles/router.dev.js"></script>
-    <script src="lib/angular2/bundles/http.dev.js"></script>
-    <script>
-        System.config({
-            packages: {
-                'app': {defaultExtension: 'js'}
-            }
-        });
-        System.import('./app/main').catch(console.log.bind(console));
-    </script>
+   <environment names="Development">
+        <!-- 1. Load libraries -->
+        <!-- IE required polyfills, in this exact order -->
+        <script src="lib/es6-shim/es6-shim.min.js"></script>
+        <script src="lib/systemjs/dist/system-polyfills.js"></script>
+        <script src="lib/angular2/es6/dev/src/testing/shims_for_IE.js"></script>   
+        <script src="lib/angular2/bundles/angular2-polyfills.js"></script>
+        <script src="lib/systemjs/dist/system.src.js"></script>
+        <script src="lib/rxjs/bundles/Rx.js"></script>
+        <script src="lib/angular2/bundles/angular2.dev.js"></script>
+        <script src="lib/angular2/bundles/router.dev.js"></script>
+        <script src="lib/angular2/bundles/http.dev.js"></script>
+        <script>
+            System.config({
+                packages: {
+                    'app': {defaultExtension: 'js'}
+                }
+            });
+        
+        System.import('./app/main')
+        .catch(console.log.bind(console));
+        </script>
+    </environment>
+    
+    <environment names="Staging,Production">                       
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.0/es6-shim.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.24/system-polyfills.js"></script>
+        <script src="https://npmcdn.com/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
+
+        <!-- Angular polyfill required everywhere -->
+        <script src="https://code.angularjs.org/2.0.0-beta.11/angular2-polyfills.js"></script>
+
+        <script src="https://code.angularjs.org/tools/system.js"></script>
+                
+        <script src="https://code.angularjs.org/2.0.0-beta.11/Rx.js"></script>
+        <script src="https://code.angularjs.org/2.0.0-beta.11/angular2.dev.js"></script>
+        <script src="https://code.angularjs.org/2.0.0-beta.11/router.dev.js"></script>
+        <script src="https://code.angularjs.org/2.0.0-beta.11/http.dev.js"></script>
+        
+        <script>
+            System.config({
+                packages: {
+                    'app': {defaultExtension: 'js'}
+                }
+            });
+        
+            System.import('angular2/core')
+            .then(function(core){
+                    core.enableProdMode();
+                    return System.import('./app/main');
+            })
+            .catch(console.log.bind(console));
+        </script>
+    </environment>    
 }

@@ -7,8 +7,20 @@
         <base href="/" />
         
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="lib/material-design-lite/dist/material.blue-teal.min.css">
-        <script src="lib/material-design-lite/material.min.js"></script>
+   
+        <environment names="Development">
+            <link rel="stylesheet" href="lib/material-design-lite/dist/material.blue-teal.min.css">
+            <script src="lib/material-design-lite/material.min.js"></script>
+        </environment>
+        <environment names="Staging,Production">            
+            <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue-teal.min.css"
+             asp-fallback-href="lib/material-design-lite/dist/material.blue-teal.min.css"
+             asp-fallback-test-class="mdl-ripple" />
+            <script src="https://code.getmdl.io/1.1.3/material.min.js"
+                    asp-fallback-src="lib/material-design-lite/material.min.js"
+                    asp-fallback-test="window.componentHandler">
+            </script>
+          </environment>
     </head>
     <body>
         @RenderBody()

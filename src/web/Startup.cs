@@ -8,7 +8,7 @@ namespace Notifier.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
-        {            
+        {
             services.AddMvc();
         }
 
@@ -17,12 +17,13 @@ namespace Notifier.Web
         {
             app.UseDeveloperExceptionPage();
             app.UseIISPlatformHandler();
-            
+
             app.UseStaticFiles();
-            
-            app.UseMvc(routes =>{
-                routes.MapRoute(name:"default", template: "{controller=Home}/{action=Index}/{id?}");
-                routes.MapRoute("spa-fallback","{*anything}",new{controller ="Home", action="Index"} );                
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(name: "default", template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
             });
         }
 

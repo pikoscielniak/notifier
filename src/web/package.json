@@ -4,7 +4,8 @@
   "scripts": {
     "tsc": "tsc -w",
     "typings": "typings",
-    "postinstall": "typings install"
+    "buildDev":"gulp build-dev",
+    "postinstall": "concurrently \"typings install\" \"npm run buildDev\""
   },
   "license": "ISC",
   "dependencies": {
@@ -18,8 +19,13 @@
     "zone.js": "^0.6.5"
   },
   "devDependencies": {
+    "concurrently": "^2.0.0",
     "del": "^2.0.2",
+    "event-stream": "^3.3.2",
     "gulp": "^3.9.0",
+    "gulp-inline-ng2-template": "1.1.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-typescript": "^2.12.1",
     "typescript": "^1.8.9",
     "typings": "^0.7.5"
   }
