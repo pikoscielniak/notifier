@@ -1,4 +1,4 @@
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit} from '@angular/core';
 
 import {ConfirmService} from "./shared/confirm/confirm.service";
 import {ConfirmComponent} from "./shared/confirm/confirm.component";

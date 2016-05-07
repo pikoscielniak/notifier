@@ -5,57 +5,72 @@
 @section scripts {
 
    <environment names="Development">
-        <!-- 1. Load libraries -->
-        <!-- IE required polyfills, in this exact order -->
-        <script src="lib/es6-shim/es6-shim.min.js"></script>
-        <script src="lib/systemjs/dist/system-polyfills.js"></script>
-        <script src="lib/angular2/es6/dev/src/testing/shims_for_IE.js"></script>   
-        <script src="lib/angular2/bundles/angular2-polyfills.js"></script>
-        <script src="lib/systemjs/dist/system.src.js"></script>
-        <script src="lib/rxjs/bundles/Rx.js"></script>
-        <script src="lib/angular2/bundles/angular2.dev.js"></script>
-        <script src="lib/angular2/bundles/router.dev.js"></script>
-        <script src="lib/angular2/bundles/http.dev.js"></script>
-        <script>
-            System.config({
-                packages: {
-                    'app': {defaultExtension: 'js'}
-                }
-            });
-        
-        System.import('./app/main')
-        .catch(console.log.bind(console));
-        </script>
-    </environment>
+      
+       <script src="lib/es6-shim/es6-shim.min.js"></script>
+
+
+       <script src="lib/zone.js/dist/zone.js"></script>
+       <script src="lib/reflect-metadata/Reflect.js"></script>
+       <script src="lib/systemjs/dist/system.src.js"></script>
+       <!-- 2. Configure SystemJS -->
+       <script>
+           (function (global) {
+
+               // map tells the System loader where to look for things
+               var map = {
+                   'app': 'app', // 'dist',
+                   'rxjs': 'lib/rxjs',
+                   '@@angular': 'lib/@@angular'
+               };
+
+               // packages tells the System loader how to load when no filename and/or no extension
+               var packages = {
+                   'app': { main: 'app/main.js', defaultExtension: 'js' },
+                   'rxjs': { defaultExtension: 'js' }
+               };
+
+               var packageNames = [
+               '@@angular/common',
+               '@@angular/compiler',
+               '@@angular/core',
+               '@@angular/http',
+               '@@angular/platform-browser',
+               '@@angular/platform-browser-dynamic',
+               '@@angular/router',
+               '@@angular/router-deprecated',
+               '@@angular/testing',
+               '@@angular/upgrade'
+               ];
+
+               // add package entries for angular packages in the form '@@angular/common': { main: 'index.js', defaultExtension: 'js' }
+               packageNames.forEach(function (pkgName) {
+                   packages[pkgName] = { main: 'index.js', defaultExtension: 'js' };
+               });
+
+               var config = {
+                   map: map,
+                   packages: packages
+               }
+
+               // filterSystemConfig - index.html's chance to modify config before we register it.
+               if (global.filterSystemConfig) { global.filterSystemConfig(config); }
+
+               System.config(config);
+
+           })(this);
+
+       </script>
+   </environment>
     
     <environment names="Staging,Production">                       
         <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.0/es6-shim.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.24/system-polyfills.js"></script>
-        <script src="https://npmcdn.com/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
 
-        <!-- Angular polyfill required everywhere -->
-        <script src="https://code.angularjs.org/2.0.0-beta.11/angular2-polyfills.js"></script>
 
-        <script src="https://code.angularjs.org/tools/system.js"></script>
-                
-        <script src="https://code.angularjs.org/2.0.0-beta.11/Rx.js"></script>
-        <script src="https://code.angularjs.org/2.0.0-beta.11/angular2.dev.js"></script>
-        <script src="https://code.angularjs.org/2.0.0-beta.11/router.dev.js"></script>
-        <script src="https://code.angularjs.org/2.0.0-beta.11/http.dev.js"></script>
-        
-        <script>
-            System.config({
-                packages: {
-                    'app': {defaultExtension: 'js'}
-                }
-            });
-        
-            System.import('angular2/core')
-            .then(function(core){
-                    core.enableProdMode();
-                    return System.import('./app/main');
-            })
-            .catch(console.log.bind(console));
-        </script>
+        <script src="lib/zone.js/dist/zone.js"></script>
+        <script src="lib/reflect-metadata/Reflect.js"></script>
+        <script src="lib/systemjs/dist/system.src.js"></script>
+        <!-- 2. Configure SystemJS -->
+        <script src="./systemjsConfig.js"></script>
+
     </environment>    
 }

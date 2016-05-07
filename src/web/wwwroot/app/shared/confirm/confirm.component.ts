@@ -1,4 +1,4 @@
-import {OnInit, Component} from "angular2/core";
+import {OnInit, Component} from '@angular/core';
 
 import {ConfirmService} from "./confirm.service";
 
