@@ -7,7 +7,6 @@ var eventStream = require('event-stream');
 var typescript = require('gulp-typescript');
 var inlineNg2Template = require('gulp-inline-ng2-template');
 var sourcemaps = require('gulp-sourcemaps');
-var util = require("gulp-util");
 
 var webroot = "./wwwroot/";
 
@@ -25,7 +24,6 @@ var config = {
         require.resolve('material-design-lite/material.min.js')
     ]
 };
-util.log(config.lib);
 
 gulp.task('build.lib', ['clean'], function () {
   
