@@ -1,35 +1,46 @@
+@model Notifier.Web.Models.NotifierVm
 <notifier>
     Loading...
 </notifier>
 
 @section scripts {
+    <script>
+        (function (win) {
+            var authConfig = {
+                authority: '@Model.AuthSettings.Authority',
+                client_id: '@Model.AuthSettings.ClientId'
+            };
+            win.notifierSettings = {
+                authConfig: authConfig
+            };
+        }(window));
+    </script>
 
-   <environment names="Development">
-      
-       <script src="lib/es6-shim/es6-shim.min.js"></script>
+    <environment names="Development">
 
-
-       <script src="lib/zone.js/dist/zone.js"></script>
-       <script src="lib/reflect-metadata/Reflect.js"></script>
-       <script src="lib/systemjs/dist/system.src.js"></script>
-       <!-- 2. Configure SystemJS -->
-       <script src="systemjsConfig.js"></script>
-       <script>          
-           System.import('app').catch(function (err) { console.error(err); });
-       </script>
-   </environment>
-    
-    <environment names="Staging,Production">                       
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.0/es6-shim.js"></script>
-
-
+        <script src="auth/oidc-token-manager.js"></script>
+        <script src="lib/es6-shim/es6-shim.min.js"></script>
         <script src="lib/zone.js/dist/zone.js"></script>
         <script src="lib/reflect-metadata/Reflect.js"></script>
         <script src="lib/systemjs/dist/system.src.js"></script>
         <!-- 2. Configure SystemJS -->
         <script src="systemjsConfig.js"></script>
         <script>
-           System.import('app').catch(function (err) { console.error(err); });
+            System.import('app').catch(function (err) { console.error(err); });
         </script>
-    </environment>    
+    </environment>
+
+    <environment names="Staging,Production">
+
+        <script src="auth/oidc-token-manager.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.0/es6-shim.js"></script>
+        <script src="lib/zone.js/dist/zone.js"></script>
+        <script src="lib/reflect-metadata/Reflect.js"></script>
+        <script src="lib/systemjs/dist/system.src.js"></script>
+        <!-- 2. Configure SystemJS -->
+        <script src="systemjsConfig.js"></script>
+        <script>
+            System.import('app').catch(function (err) { console.error(err); });
+        </script>
+    </environment>
 }

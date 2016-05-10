@@ -1,0 +1,6 @@
+﻿{
+  "authConfig": {
+    "authority": "js_oidc",
+    "client_id": "http://localhost:22530/"
+  }
+}
