@@ -1,4 +1,4 @@
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Notifier.Web.Models;
 
 namespace Notifier.Web.Controllers

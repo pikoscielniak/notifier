@@ -1,5 +1,5 @@
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Notifier.Web.Models;
@@ -8,11 +8,12 @@ namespace Notifier.Web
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
+        public Startup(IHostingEnvironment hostingEnvironment)
         {
             var builder = new ConfigurationBuilder()
+                .SetBasePath(hostingEnvironment.ContentRootPath)
                 .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
+                .AddJsonFile($"appsettings.{hostingEnvironment.EnvironmentName}.json", true);
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -23,8 +24,11 @@ namespace Notifier.Web
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            var authSettings = Configuration.Get<AuthSettings>("AuthSettings");
-            services.AddInstance(authSettings);
+            var authSettings = new AuthSettings(); 
+            var authSection = Configuration.GetSection("AuthSettings");
+            authSettings.ClientId = authSection["ClientId"];
+            authSettings.Authority = authSection["Authority"];
+            services.AddSingleton(authSettings);
 
             services.AddMvc();
         }
@@ -37,8 +41,6 @@ namespace Notifier.Web
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseIISPlatformHandler();
-
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
@@ -47,8 +49,5 @@ namespace Notifier.Web
                 routes.MapRoute("spa-fallback", "{*anything}", new { controller = "Home", action = "Index" });
             });
         }
-
-        // Entry point for the application.
-        public static void Main(string[] args) => WebApplication.Run<Startup>(args);
     }
 }
